@@ -19,79 +19,14 @@
   <!-- Bootstrap CSS -->
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.0/axios.min.js"></script>
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
   <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
   integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
   crossorigin="anonymous"></script>
 
 
   <script>
-    $(document).ready(function () {
-      $("form[name='formContacto']")
-        .validate({
-          errorElement: 'span',
-          errorPlacement: function (error, element) {
-            error.addClass('invalid-feedback');
-            element.closest('.form-group').append(error);
-          },
-          highlight: function (element, errorClass, validClass) {
-            $(element).addClass('is-invalid');
-          },
-          unhighlight: function (element, errorClass, validClass) {
-            $(element).removeClass('is-invalid');
-          },
-          submitHandler: function(form) { 
-            let txtnombre = $('#txtnombre');
-            let txtapellidop = $('#txtapellidop');
-            let txtapellidom = $('#txtapellidom');
-            let txtemail = $('#txtemail');
-            let txtfono = $('#txtfono');
-
-         
-
-            axios.post('http://127.0.0.1:8000/admin/mantenedor/registro_cliente/add/', {
-              nombre:txtnombre.val() ,
-              apellidop: txtapellidop.val(),
-              apellidom: txtapellidom.val(),
-              email: txtemail.val(),
-              fono: txtfono.val(), 
-              estado: 'Recepcionado'
-            }).then((respuesta) => {
-              $('#formSuccess').show();
-            }).catch((error) => {
-              console.error(error);
-            })
-           },
-          rules: {
-            txtTitulo: {
-              required: true,
-              normalizer: function (value) {
-                return $.trim(value);
-              },
-            },
-            txtCorreoElectronico: {
-              required: true,
-              email: true
-            },
-            txtMensaje: {
-              required: true,
-              normalizer: function (value) {
-                return $.trim(value);
-              },
-            },
-          },
-          messages: {
-            txtTitulo: 'El campo de titulo es requerido',
-            txtCorreoElectronico: {
-              required: 'El campo de correo electronico es requerido',
-              email: 'El campo de correo electronico debe ser un correo electronico',
-            },
-           
-          }
-
-        })
-
-    });
+ 
 
   </script>
 
@@ -141,6 +76,12 @@
 
 </nav>
 
+ <!--FIN  NAV ---->
+ <style>
+  #loading {
+    display: none;
+  }
+</style>
 
 </head>
 
@@ -150,10 +91,42 @@
   <br>
   <br>
 
- 
-  
+ <div class="container">
 
-  <form action="" name="formContacto">
+  <button id="carga_ajax">Carga contenido</button> 
+  <button id="json_get">Request JSON GET</button> 
+  <button id="json_post">Request JSON POST</button>
+  <div id="mensaje"></div>
+  <div id="loading"> Obteniendo datos...</div>
+
+
+ </div>
+  <script>
+var boton = document.getElementById('json_get');
+ boton.addEventListener('click', function() {
+   loading.style.display = 'block';
+   axios.get('http://127.0.0.1:8000/api/clientes/', {
+     responseType: 'json'
+     
+   })
+     .then(function(res) {
+       if(res.status==200) {
+         console.log(res.data);
+         mensaje.innerHTML = res.data.title;
+       }
+       console.log(res);
+     })
+     .catch(function(err) {
+       console.log(err);
+     })
+     .then(function() {
+       loading.style.display = 'none';
+     });
+ });
+  </script>
+
+
+  <form action="" name="json_post" id="json_post">
        
 
        <div class="container">
@@ -202,46 +175,8 @@
     </div>
  
 
-<div class="container-fluid">
 
 
-
-  <section>
-    <nav id="nav2">
-
-      <div class="row row-cols-2">
-        <div class="col"><br> </div>       
-      </div>
-            <div class="row row-cols-2">
-        <div class="col"><i class="fa fa-wifi fa-5x" aria-hidden="true"></i></div>       
-      </div>
-      
-      <div class="row row-cols-2">
-        <div class="col"><br></div>       
-      </div>
-      <div class="row row-cols-2">
-        <div class="col"><i class="fa fa-television fa-5x" aria-hidden="true"></i></div>       
-      </div>
-      <div class="row row-cols-2">
-        <div class="col"><br></div>       
-      </div>
-      <div class="row row-cols-2">
-        <div class="col"><i class="fa fa-volume-control-phone fa-5x" aria-hidden="true"></i></div>       
-      </div>
-      <div class="row row-cols-2">
-        <div class="col"><br></div>       
-      </div>
-
-    </nav>
-    
-
-  
-  <div class="container-fluid">
-  <footer>
-    <p> Pagina creada, para Solemne 3 Final  </p>
-  </footer>
-  
-  </div>
 
 
  
