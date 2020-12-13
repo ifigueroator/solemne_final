@@ -19,4 +19,5 @@ urlpatterns = [
     path('PlanEmpresa/', PlanEmpresa),
     path('RegistroCliente/', FormularioRegCliente.index,name='RegistroCliente'),
     path('guardarRegistroCliente/',FormularioRegCliente.Procesar_registroCliente,name='guardarRegistroCliente'),
+    path('',include('pwa.urls')),
 ]

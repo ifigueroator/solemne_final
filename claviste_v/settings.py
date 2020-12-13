@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'mantenedor',
     'rest_framework',
+    'pwa',
 ]
 
 MIDDLEWARE = [
@@ -120,3 +121,8 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 STATIC_URL = '/static/'
+
+PWA_APP_NAME ='claviste_v'
+PWA_APP_DESCRIPTION = 'Pagina de Servicio'
+PWA_APP_THEME_COLOR = '#3477F5'
+PWA_APP_BACKGROUND_COLOR = '#6699F7'
